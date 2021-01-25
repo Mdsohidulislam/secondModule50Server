@@ -8,9 +8,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-app.get('/',(req,res)=>{
-    res.status(200).send(`<h1>Hello world</h1>`);
-})
 
 
 
@@ -23,6 +20,12 @@ const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology
 client.connect(err => {
   const collection = client.db('emaStores').collection('products');
   const ordersCollection = client.db('emaStores').collection('orders');
+
+  app.get('/',(req,res)=>{
+    res.status(200).send(`<h1>Hello world</h1>`);
+})
+
+
 
   app.post('/addProducts',(req,res)=>{
     const products=req.body;
