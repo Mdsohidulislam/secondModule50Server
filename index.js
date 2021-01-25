@@ -15,14 +15,14 @@ app.get('/',(req,res)=>{
 
 
 
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.lqicv.mongodb.net/${process.env.NAME}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://MODULE50:MUtBvTEh3mXIfthW@cluster0.lqicv.mongodb.net/emaStores?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology:true });
 
 
 
 client.connect(err => {
-  const collection = client.db(`${process.env.NAME}`).collection(`${process.env.COLLECTION}`);
-  const ordersCollection = client.db(`${process.env.NAME}`).collection(`${process.env.ORDERS}`);
+  const collection = client.db('emaStores').collection('products');
+  const ordersCollection = client.db('emaStores').collection('orders');
 
   app.post('/addProducts',(req,res)=>{
     const products=req.body;
