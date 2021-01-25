@@ -1,11 +1,9 @@
-const MongoClient = require('mongodb').MongoClient;
+
 const express =require('express');
 const bodyParser=require('body-parser');
 const cors=require('cors');
+const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config()
-
-
-
 
 
 
@@ -15,7 +13,11 @@ const app=express();
 app.use(bodyParser.json());
 app.use(cors());
 
+const port =4001;
 
+app.get('/',(req,res)=>{
+  res.status(200).send(`<h1>Hello world</h1>`);
+})
 
 const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology:true });
 
@@ -25,11 +27,6 @@ client.connect(err => {
   const collection = client.db('emaStores').collection('products');
   const ordersCollection = client.db('emaStores').collection('orders');
 
-  app.get('/',(req,res)=>{
-    res.status(200).send(`<h1>Hello world</h1>`);
-})
-
-  console.log(err);
 
   app.post('/addProducts',(req,res)=>{
     const products=req.body;
@@ -48,7 +45,7 @@ client.connect(err => {
   })
 
   app.get('/products',(req,res)=>{
-    collection.find({}).limit(20)
+    collection.find({})
     .toArray((err,docs)=>{
       res.send(docs)
     })
@@ -76,4 +73,4 @@ client.connect(err => {
 
 
 
-app.listen(process.env.PORT || 4001)
+app.listen(process.env.PORT || port)
