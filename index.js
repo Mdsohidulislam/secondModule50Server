@@ -3,9 +3,6 @@ const express =require('express');
 const bodyParser=require('body-parser');
 const cors=require('cors');
 require('dotenv').config()
-const app=express();
-app.use(bodyParser.json());
-app.use(cors());
 
 
 
@@ -13,6 +10,13 @@ app.use(cors());
 
 
 const uri = `mongodb+srv://MODULE50:MUtBvTEh3mXIfthW@cluster0.lqicv.mongodb.net/emaStores?retryWrites=true&w=majority`;
+
+const app=express();
+app.use(bodyParser.json());
+app.use(cors());
+
+
+
 const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology:true });
 
 
@@ -25,7 +29,7 @@ client.connect(err => {
     res.status(200).send(`<h1>Hello world</h1>`);
 })
 
-
+  console.log(err);
 
   app.post('/addProducts',(req,res)=>{
     const products=req.body;
